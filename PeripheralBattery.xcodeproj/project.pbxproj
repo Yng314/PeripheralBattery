@@ -1,0 +1,558 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		100000000000000000000001 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000101 /* main.mm */; };
+		100000000000000000000002 /* RazerDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000102 /* RazerDevice.cpp */; };
+		100000000000000000000003 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000103 /* AppIcon.icns */; };
+		100000000000000000000004 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 100000000000000000000201 /* IOKit.framework */; };
+		100000000000000000000005 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 100000000000000000000202 /* Cocoa.framework */; };
+		100000000000000000000006 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 100000000000000000000203 /* CoreFoundation.framework */; };
+		100000000000000000000007 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 100000000000000000000204 /* UserNotifications.framework */; };
+		100000000000000000000008 /* PeripheralBatteryWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 100000000000000000000301 /* PeripheralBatteryWidgetExtension.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		100000000000000000000009 /* WidgetTimelineReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000107 /* WidgetTimelineReloader.swift */; };
+		100000000000000000000011 /* BatteryPercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000111 /* BatteryPercentLabel.swift */; };
+		100000000000000000000012 /* BatteryRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000112 /* BatteryRing.swift */; };
+		100000000000000000000013 /* JSONCoder+PeripheralBattery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000113 /* JSONCoder+PeripheralBattery.swift */; };
+		100000000000000000000014 /* PeripheralBatteryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000114 /* PeripheralBatteryEntry.swift */; };
+		100000000000000000000015 /* PeripheralBatteryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000115 /* PeripheralBatteryFixtures.swift */; };
+		100000000000000000000016 /* PeripheralBatteryGlassBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000116 /* PeripheralBatteryGlassBackground.swift */; };
+		100000000000000000000017 /* PeripheralBatteryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000117 /* PeripheralBatteryProvider.swift */; };
+		100000000000000000000018 /* PeripheralBatterySnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000118 /* PeripheralBatterySnapshot.swift */; };
+		100000000000000000000019 /* PeripheralBatteryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000119 /* PeripheralBatteryStore.swift */; };
+		10000000000000000000001A /* PeripheralBatteryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000011A /* PeripheralBatteryWidget.swift */; };
+		10000000000000000000001B /* PeripheralBatteryWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000011B /* PeripheralBatteryWidgetBundle.swift */; };
+		10000000000000000000001C /* PeripheralBatteryWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000011C /* PeripheralBatteryWidgetView.swift */; };
+		10000000000000000000001D /* PeripheralDeviceBattery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000011D /* PeripheralDeviceBattery.swift */; };
+		10000000000000000000001E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 100000000000000000000205 /* WidgetKit.framework */; };
+		10000000000000000000001F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 100000000000000000000206 /* SwiftUI.framework */; };
+		100000000000000000000020 /* razerdeathadder_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000120 /* razerdeathadder_icon.png */; };
+		100000000000000000000021 /* rogfalchion_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000121 /* rogfalchion_icon.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		100000000000000000000401 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 100000000000000000000900 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 100000000000000000000501;
+			remoteInfo = PeripheralBatteryWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		100000000000000000000701 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				100000000000000000000008 /* PeripheralBatteryWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		100000000000000000000101 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		100000000000000000000102 /* RazerDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RazerDevice.cpp; sourceTree = "<group>"; };
+		100000000000000000000103 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		100000000000000000000104 /* RazerDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RazerDevice.hpp; sourceTree = "<group>"; };
+		100000000000000000000105 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100000000000000000000106 /* PeripheralBattery.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeripheralBattery.entitlements; sourceTree = "<group>"; };
+		100000000000000000000107 /* WidgetTimelineReloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTimelineReloader.swift; sourceTree = "<group>"; };
+		100000000000000000000111 /* BatteryPercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryPercentLabel.swift; sourceTree = "<group>"; };
+		100000000000000000000112 /* BatteryRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryRing.swift; sourceTree = "<group>"; };
+		100000000000000000000113 /* JSONCoder+PeripheralBattery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONCoder+PeripheralBattery.swift"; sourceTree = "<group>"; };
+		100000000000000000000114 /* PeripheralBatteryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatteryEntry.swift; sourceTree = "<group>"; };
+		100000000000000000000115 /* PeripheralBatteryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatteryFixtures.swift; sourceTree = "<group>"; };
+		100000000000000000000116 /* PeripheralBatteryGlassBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatteryGlassBackground.swift; sourceTree = "<group>"; };
+		100000000000000000000117 /* PeripheralBatteryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatteryProvider.swift; sourceTree = "<group>"; };
+		100000000000000000000118 /* PeripheralBatterySnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatterySnapshot.swift; sourceTree = "<group>"; };
+		100000000000000000000119 /* PeripheralBatteryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatteryStore.swift; sourceTree = "<group>"; };
+		10000000000000000000011A /* PeripheralBatteryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatteryWidget.swift; sourceTree = "<group>"; };
+		10000000000000000000011B /* PeripheralBatteryWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatteryWidgetBundle.swift; sourceTree = "<group>"; };
+		10000000000000000000011C /* PeripheralBatteryWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralBatteryWidgetView.swift; sourceTree = "<group>"; };
+		10000000000000000000011D /* PeripheralDeviceBattery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralDeviceBattery.swift; sourceTree = "<group>"; };
+		10000000000000000000011E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10000000000000000000011F /* PeripheralBatteryWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeripheralBatteryWidgetExtension.entitlements; sourceTree = "<group>"; };
+		100000000000000000000120 /* razerdeathadder_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = razerdeathadder_icon.png; sourceTree = "<group>"; };
+		100000000000000000000121 /* rogfalchion_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rogfalchion_icon.png; sourceTree = "<group>"; };
+		100000000000000000000201 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		100000000000000000000202 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		100000000000000000000203 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		100000000000000000000204 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		100000000000000000000205 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		100000000000000000000206 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		100000000000000000000300 /* PeripheralBattery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeripheralBattery.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		100000000000000000000301 /* PeripheralBatteryWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PeripheralBatteryWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		100000000000000000000601 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000004 /* IOKit.framework in Frameworks */,
+				100000000000000000000005 /* Cocoa.framework in Frameworks */,
+				100000000000000000000006 /* CoreFoundation.framework in Frameworks */,
+				100000000000000000000007 /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100000000000000000000602 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10000000000000000000001E /* WidgetKit.framework in Frameworks */,
+				10000000000000000000001F /* SwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		100000000000000000000801 = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000803 /* src */,
+				100000000000000000000804 /* Widget */,
+				100000000000000000000103 /* AppIcon.icns */,
+				100000000000000000000105 /* Info.plist */,
+				100000000000000000000106 /* PeripheralBattery.entitlements */,
+				100000000000000000000802 /* Frameworks */,
+				100000000000000000000805 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		100000000000000000000802 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000202 /* Cocoa.framework */,
+				100000000000000000000203 /* CoreFoundation.framework */,
+				100000000000000000000201 /* IOKit.framework */,
+				100000000000000000000206 /* SwiftUI.framework */,
+				100000000000000000000204 /* UserNotifications.framework */,
+				100000000000000000000205 /* WidgetKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		100000000000000000000803 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000101 /* main.mm */,
+				100000000000000000000102 /* RazerDevice.cpp */,
+				100000000000000000000104 /* RazerDevice.hpp */,
+				100000000000000000000107 /* WidgetTimelineReloader.swift */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		100000000000000000000804 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000111 /* BatteryPercentLabel.swift */,
+				100000000000000000000112 /* BatteryRing.swift */,
+				100000000000000000000113 /* JSONCoder+PeripheralBattery.swift */,
+				100000000000000000000114 /* PeripheralBatteryEntry.swift */,
+				100000000000000000000115 /* PeripheralBatteryFixtures.swift */,
+				100000000000000000000116 /* PeripheralBatteryGlassBackground.swift */,
+				100000000000000000000117 /* PeripheralBatteryProvider.swift */,
+				100000000000000000000118 /* PeripheralBatterySnapshot.swift */,
+				100000000000000000000119 /* PeripheralBatteryStore.swift */,
+				10000000000000000000011A /* PeripheralBatteryWidget.swift */,
+				10000000000000000000011B /* PeripheralBatteryWidgetBundle.swift */,
+				10000000000000000000011C /* PeripheralBatteryWidgetView.swift */,
+				10000000000000000000011D /* PeripheralDeviceBattery.swift */,
+				10000000000000000000011E /* Info.plist */,
+				10000000000000000000011F /* PeripheralBatteryWidgetExtension.entitlements */,
+				100000000000000000000120 /* razerdeathadder_icon.png */,
+				100000000000000000000121 /* rogfalchion_icon.png */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		100000000000000000000805 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000300 /* PeripheralBattery.app */,
+				100000000000000000000301 /* PeripheralBatteryWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		100000000000000000000500 /* PeripheralBattery */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 100000000000000000000A10 /* Build configuration list for PBXNativeTarget "PeripheralBattery" */;
+			buildPhases = (
+				100000000000000000000611 /* Sources */,
+				100000000000000000000601 /* Frameworks */,
+				100000000000000000000621 /* Resources */,
+				100000000000000000000701 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				100000000000000000000402 /* PBXTargetDependency */,
+			);
+			name = PeripheralBattery;
+			productName = PeripheralBattery;
+			productReference = 100000000000000000000300 /* PeripheralBattery.app */;
+			productType = "com.apple.product-type.application";
+		};
+		100000000000000000000501 /* PeripheralBatteryWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 100000000000000000000A20 /* Build configuration list for PBXNativeTarget "PeripheralBatteryWidgetExtension" */;
+			buildPhases = (
+				100000000000000000000612 /* Sources */,
+				100000000000000000000602 /* Frameworks */,
+				100000000000000000000622 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PeripheralBatteryWidgetExtension;
+			productName = PeripheralBatteryWidgetExtension;
+			productReference = 100000000000000000000301 /* PeripheralBatteryWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		100000000000000000000900 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2640;
+				TargetAttributes = {
+					100000000000000000000500 = {
+						CreatedOnToolsVersion = 26.4.1;
+					};
+					100000000000000000000501 = {
+						CreatedOnToolsVersion = 26.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 100000000000000000000A00 /* Build configuration list for PBXProject "PeripheralBattery" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 100000000000000000000801;
+			productRefGroup = 100000000000000000000805 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				100000000000000000000500 /* PeripheralBattery */,
+				100000000000000000000501 /* PeripheralBatteryWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		100000000000000000000621 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000003 /* AppIcon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100000000000000000000622 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000020 /* razerdeathadder_icon.png in Resources */,
+				100000000000000000000021 /* rogfalchion_icon.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		100000000000000000000611 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000001 /* main.mm in Sources */,
+				100000000000000000000002 /* RazerDevice.cpp in Sources */,
+				100000000000000000000009 /* WidgetTimelineReloader.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100000000000000000000612 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000011 /* BatteryPercentLabel.swift in Sources */,
+				100000000000000000000012 /* BatteryRing.swift in Sources */,
+				100000000000000000000013 /* JSONCoder+PeripheralBattery.swift in Sources */,
+				100000000000000000000014 /* PeripheralBatteryEntry.swift in Sources */,
+				100000000000000000000015 /* PeripheralBatteryFixtures.swift in Sources */,
+				100000000000000000000016 /* PeripheralBatteryGlassBackground.swift in Sources */,
+				100000000000000000000017 /* PeripheralBatteryProvider.swift in Sources */,
+				100000000000000000000018 /* PeripheralBatterySnapshot.swift in Sources */,
+				100000000000000000000019 /* PeripheralBatteryStore.swift in Sources */,
+				10000000000000000000001A /* PeripheralBatteryWidget.swift in Sources */,
+				10000000000000000000001B /* PeripheralBatteryWidgetBundle.swift in Sources */,
+				10000000000000000000001C /* PeripheralBatteryWidgetView.swift in Sources */,
+				10000000000000000000001D /* PeripheralDeviceBattery.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		100000000000000000000402 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 100000000000000000000501 /* PeripheralBatteryWidgetExtension */;
+			targetProxy = 100000000000000000000401 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		100000000000000000000A01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		100000000000000000000A02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		100000000000000000000A11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PeripheralBattery.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3CU4469WB6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.young.peripheralbattery;
+				PRODUCT_NAME = PeripheralBattery;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		100000000000000000000A12 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PeripheralBattery.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3CU4469WB6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.young.peripheralbattery;
+				PRODUCT_NAME = PeripheralBattery;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		100000000000000000000A21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Widget/PeripheralBatteryWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3CU4469WB6;
+				ENABLE_APP_SANDBOX = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.young.peripheralbattery.widget;
+				PRODUCT_NAME = PeripheralBatteryWidgetExtension;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
+				WRAPPER_EXTENSION = appex;
+			};
+			name = Debug;
+		};
+		100000000000000000000A22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Widget/PeripheralBatteryWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3CU4469WB6;
+				ENABLE_APP_SANDBOX = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.young.peripheralbattery.widget;
+				PRODUCT_NAME = PeripheralBatteryWidgetExtension;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
+				WRAPPER_EXTENSION = appex;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		100000000000000000000A00 /* Build configuration list for PBXProject "PeripheralBattery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100000000000000000000A01 /* Debug */,
+				100000000000000000000A02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		100000000000000000000A10 /* Build configuration list for PBXNativeTarget "PeripheralBattery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100000000000000000000A11 /* Debug */,
+				100000000000000000000A12 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		100000000000000000000A20 /* Build configuration list for PBXNativeTarget "PeripheralBatteryWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100000000000000000000A21 /* Debug */,
+				100000000000000000000A22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 100000000000000000000900 /* Project object */;
+}

@@ -1,0 +1,10 @@
+PeripheralBattery
+PeripheralBattery.app/
+build/
+*.xcuserdata/
+xcuserdata/
+*.xcuserstate
+*.dmg
+src/*.o
+PeripheralBattery 2
+.DS_Store
