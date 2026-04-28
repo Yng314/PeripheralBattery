@@ -54,12 +54,6 @@ static NSURL* sharedBatterySnapshotURL() {
     return [containerURL URLByAppendingPathComponent:kBatterySnapshotFileName];
 }
 
-static NSURL* widgetContainerBatterySnapshotURL() {
-    NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:
-        @"Library/Containers/com.young.peripheralbattery.widget/Data/Library/Application Support/PeripheralBattery/batterySnapshot.json"];
-    return [NSURL fileURLWithPath:path];
-}
-
 static void writeBatterySnapshotJSON(NSString* json, NSURL* snapshotURL) {
     if (!snapshotURL) {
         return;
@@ -130,7 +124,6 @@ static void writeSharedBatterySnapshot(DeviceBatteryStatus mouse, DeviceBatteryS
     } else {
         NSLog(@"Failed to resolve app group container for widget battery snapshot");
     }
-    writeBatterySnapshotJSON(json, widgetContainerBatterySnapshotURL());
 
     reloadWidgetTimelinesIfAvailable();
 }
@@ -295,9 +288,7 @@ static bool queryRogFalchionBattery(uint8_t& batteryPercent, bool& needsInputMon
 - (DeviceBatteryStatus)queryRazerBattery;
 - (void)updateDisplayWithMouse:(DeviceBatteryStatus)mouse keyboard:(DeviceBatteryStatus)keyboard;
 - (void)showUnavailableState:(NSString*)status retrySoon:(BOOL)retrySoon;
-- (NSImage*)mouseIconCharging:(BOOL)charging;
-- (NSImage*)menuIconForMouse:(DeviceBatteryStatus)mouse keyboard:(DeviceBatteryStatus)keyboard;
-- (NSColor*)textColorForBattery:(uint8_t)battery charging:(BOOL)charging;
+- (NSImage*)menuBarBoltIcon;
 - (BOOL)canUseUserNotifications;
 - (void)requestNotificationPermission;
 - (void)showLowBatteryNotificationForDevice:(NSString*)device battery:(uint8_t)battery identifier:(NSString*)identifier;
@@ -333,9 +324,9 @@ static void onDeviceChange(void* context) {
     [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
 
     statusItem_ = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    statusItem_.button.image = [self mouseIconCharging:NO];
-    statusItem_.button.imagePosition = NSImageLeft;
-    statusItem_.button.title = @"...";
+    statusItem_.button.image = [self menuBarBoltIcon];
+    statusItem_.button.imagePosition = NSImageOnly;
+    statusItem_.button.title = @"";
     statusItem_.button.toolTip = kAppName;
 
     NSMenu* menu = [[NSMenu alloc] initWithTitle:kAppName];
@@ -534,6 +525,10 @@ static void onDeviceChange(void* context) {
     if (!razerDevice_->isConnected()) {
         razerDevice_->disconnect();
         if (!razerDevice_->connect()) {
+            if (lastBatteryLevel_ > 0) {
+                status.available = true;
+                status.battery = lastBatteryLevel_;
+            }
             return status;
         }
     }
@@ -566,15 +561,9 @@ static void onDeviceChange(void* context) {
         lastKeyboardBatteryLevel_ = keyboard.battery;
     }
 
-    NSMutableArray<NSString*>* titleParts = [NSMutableArray array];
     NSMutableArray<NSString*>* tooltipParts = [NSMutableArray array];
 
     if (mouse.available) {
-        NSString* mouseTitle = mouse.battery > 0
-            ? [NSString stringWithFormat:@"M%u%@", mouse.battery, mouse.charging ? @"⚡︎" : @""]
-            : @"M...";
-        [titleParts addObject:mouseTitle];
-
         NSString* mode = mouse.charging ? @"Charging" : @"Wireless";
         if (mouse.battery > 0) {
             deviceMenuItem_.title = [NSString stringWithFormat:@"Razer DeathAdder V3 Pro — %@ — %u%%", mode, mouse.battery];
@@ -588,46 +577,22 @@ static void onDeviceChange(void* context) {
     }
 
     if (keyboard.available) {
-        [titleParts addObject:[NSString stringWithFormat:@"K%u", keyboard.battery]];
-        keyboardMenuItem_.title = [NSString stringWithFormat:@"ROG Falchion RX Low Profile — 2.4GHz — %u%%", keyboard.battery];
+        keyboardMenuItem_.title = [NSString stringWithFormat:@"ROG Falchion RX Low Profile — Wireless — %u%%", keyboard.battery];
         [tooltipParts addObject:keyboardMenuItem_.title];
     } else if (keyboard.needsPermission) {
         keyboardMenuItem_.title = @"ROG Falchion RX Low Profile — Needs Input Monitoring";
         [tooltipParts addObject:keyboardMenuItem_.title];
     } else if (lastKeyboardBatteryLevel_ > 0) {
-        [titleParts addObject:[NSString stringWithFormat:@"K%u", lastKeyboardBatteryLevel_]];
-        keyboardMenuItem_.title = [NSString stringWithFormat:@"ROG Falchion RX Low Profile — 2.4GHz — %u%%", lastKeyboardBatteryLevel_];
+        keyboardMenuItem_.title = [NSString stringWithFormat:@"ROG Falchion RX Low Profile — Wireless — %u%%", lastKeyboardBatteryLevel_];
         [tooltipParts addObject:keyboardMenuItem_.title];
     } else {
         keyboardMenuItem_.title = @"ROG Falchion RX Low Profile — Checking...";
     }
 
-    NSString* title = [titleParts componentsJoinedByString:@" "];
-    if (title.length == 0) {
-        title = @"--";
-    }
-
-    uint8_t colorBattery = 100;
-    bool colorCharging = false;
-    if (mouse.available && mouse.battery > 0) {
-        colorBattery = mouse.battery;
-        colorCharging = mouse.charging;
-    }
-    if (keyboard.available && keyboard.battery < colorBattery) {
-        colorBattery = keyboard.battery;
-        colorCharging = false;
-    }
-    NSColor* textColor = [self textColorForBattery:colorBattery charging:colorCharging];
-
-    NSDictionary* attrs = @{
-        NSForegroundColorAttributeName: textColor,
-        NSFontAttributeName: [NSFont menuBarFontOfSize:0]
-    };
-
-    statusItem_.button.image = [self menuIconForMouse:mouse keyboard:keyboard];
-    statusItem_.button.imagePosition = NSImageLeft;
-    statusItem_.button.attributedTitle = [[NSAttributedString alloc] initWithString:title
-                                                                          attributes:attrs];
+    statusItem_.button.image = [self menuBarBoltIcon];
+    statusItem_.button.imagePosition = NSImageOnly;
+    statusItem_.button.title = @"";
+    statusItem_.button.attributedTitle = nil;
 
     NSString* detail = [tooltipParts componentsJoinedByString:@" / "];
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -654,62 +619,25 @@ static void onDeviceChange(void* context) {
 }
 
 - (void)showUnavailableState:(NSString*)status retrySoon:(BOOL)retrySoon {
-    statusItem_.button.image = [self mouseIconCharging:NO];
-    statusItem_.button.imagePosition = NSImageLeft;
-    statusItem_.button.attributedTitle = [[NSAttributedString alloc] initWithString:@"--"
-                                                                         attributes:@{
-        NSForegroundColorAttributeName: [NSColor secondaryLabelColor],
-        NSFontAttributeName: [NSFont menuBarFontOfSize:0]
-    }];
+    statusItem_.button.image = [self menuBarBoltIcon];
+    statusItem_.button.imagePosition = NSImageOnly;
+    statusItem_.button.title = @"";
+    statusItem_.button.attributedTitle = nil;
     statusItem_.button.toolTip = [NSString stringWithFormat:@"Peripheral Battery — %@", status];
     statusMenuItem_.title = status;
     [self scheduleRefresh:(retrySoon ? kRetryRefreshInterval : kNormalRefreshInterval)];
 }
 
-- (NSImage*)mouseIconCharging:(BOOL)charging {
+- (NSImage*)menuBarBoltIcon {
     if (@available(macOS 11.0, *)) {
-        NSString* symbolName = charging ? @"computermouse.and.bolt.fill" : @"computermouse.fill";
-        NSImage* icon = [NSImage imageWithSystemSymbolName:symbolName
-                                   accessibilityDescription:@"Mouse"];
-        if (!icon && charging) {
-            icon = [NSImage imageWithSystemSymbolName:@"computermouse.fill"
-                             accessibilityDescription:@"Mouse"];
-        }
+        NSImage* icon = [NSImage imageWithSystemSymbolName:@"bolt.fill"
+                                   accessibilityDescription:@"Peripheral Battery"];
         if (icon) {
             [icon setTemplate:YES];
             return icon;
         }
     }
     return nil;
-}
-
-- (NSImage*)menuIconForMouse:(DeviceBatteryStatus)mouse keyboard:(DeviceBatteryStatus)keyboard {
-    if (@available(macOS 11.0, *)) {
-        NSString* symbolName = keyboard.available && !mouse.available ? @"keyboard.fill" : @"computermouse.fill";
-        if (mouse.available && mouse.charging) {
-            symbolName = @"computermouse.and.bolt.fill";
-        }
-        NSImage* icon = [NSImage imageWithSystemSymbolName:symbolName
-                                   accessibilityDescription:@"Battery device"];
-        if (icon) {
-            [icon setTemplate:YES];
-            return icon;
-        }
-    }
-    return nil;
-}
-
-- (NSColor*)textColorForBattery:(uint8_t)battery charging:(BOOL)charging {
-    if (charging) {
-        return [NSColor systemGreenColor];
-    }
-    if (battery <= 20) {
-        return [NSColor systemRedColor];
-    }
-    if (battery <= 40) {
-        return [NSColor systemYellowColor];
-    }
-    return [NSColor controlTextColor];
 }
 
 - (void)requestNotificationPermission {
