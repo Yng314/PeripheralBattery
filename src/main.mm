@@ -11,7 +11,6 @@
 static NSString* const kAppName = @"Peripheral Battery";
 static NSString* const kAppGroupIdentifier = @"group.com.young.peripheralbattery";
 static NSString* const kBatterySnapshotDefaultsKey = @"batterySnapshot";
-static NSString* const kBatterySnapshotFileName = @"batterySnapshot.json";
 static NSTimeInterval const kNormalRefreshInterval = 60.0;
 static NSTimeInterval const kRetryRefreshInterval = 10.0;
 
@@ -45,41 +44,6 @@ static NSDictionary* batterySnapshotDevice(NSString* name,
     };
 }
 
-static NSURL* sharedBatterySnapshotURL() {
-    NSFileManager* fileManager = [NSFileManager defaultManager];
-    NSURL* containerURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:kAppGroupIdentifier];
-    if (!containerURL) {
-        return nil;
-    }
-    return [containerURL URLByAppendingPathComponent:kBatterySnapshotFileName];
-}
-
-static void writeBatterySnapshotJSON(NSString* json, NSURL* snapshotURL) {
-    if (!snapshotURL) {
-        return;
-    }
-
-    NSFileManager* fileManager = [NSFileManager defaultManager];
-    NSURL* directoryURL = [snapshotURL URLByDeletingLastPathComponent];
-    NSError* directoryError = nil;
-    if (![fileManager createDirectoryAtURL:directoryURL
-               withIntermediateDirectories:YES
-                                attributes:nil
-                                     error:&directoryError]) {
-        NSLog(@"Failed to create widget battery snapshot directory: %@", directoryError);
-        return;
-    }
-
-    NSError* writeError = nil;
-    BOOL didWrite = [json writeToURL:snapshotURL
-                          atomically:YES
-                            encoding:NSUTF8StringEncoding
-                               error:&writeError];
-    if (!didWrite) {
-        NSLog(@"Failed to write widget battery snapshot file: %@", writeError);
-    }
-}
-
 static void reloadWidgetTimelinesIfAvailable() {
     using ReloadTimelinesFn = void (*)();
     void* symbol = dlsym(RTLD_DEFAULT, "reloadPeripheralBatteryWidgetTimelines");
@@ -108,21 +72,12 @@ static void writeSharedBatterySnapshot(DeviceBatteryStatus mouse, DeviceBatteryS
         return;
     }
 
-    NSUserDefaults* standardDefaults = [NSUserDefaults standardUserDefaults];
-    [standardDefaults setObject:json forKey:kBatterySnapshotDefaultsKey];
-    [standardDefaults synchronize];
-
     NSUserDefaults* sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:kAppGroupIdentifier];
     if (sharedDefaults) {
         [sharedDefaults setObject:json forKey:kBatterySnapshotDefaultsKey];
         [sharedDefaults synchronize];
-    }
-
-    NSURL* snapshotURL = sharedBatterySnapshotURL();
-    if (snapshotURL) {
-        writeBatterySnapshotJSON(json, snapshotURL);
     } else {
-        NSLog(@"Failed to resolve app group container for widget battery snapshot");
+        NSLog(@"Failed to resolve shared defaults suite for widget battery snapshot");
     }
 
     reloadWidgetTimelinesIfAvailable();

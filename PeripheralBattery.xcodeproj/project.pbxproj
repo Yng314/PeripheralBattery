@@ -453,6 +453,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.young.peripheralbattery;
 				PRODUCT_NAME = PeripheralBattery;
+				REGISTER_APP_GROUPS = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -472,6 +473,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.young.peripheralbattery;
 				PRODUCT_NAME = PeripheralBattery;
+				REGISTER_APP_GROUPS = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -493,6 +495,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.young.peripheralbattery.widget;
 				PRODUCT_NAME = PeripheralBatteryWidgetExtension;
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 6.0;
 				WRAPPER_EXTENSION = appex;
@@ -516,6 +519,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.young.peripheralbattery.widget;
 				PRODUCT_NAME = PeripheralBatteryWidgetExtension;
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 6.0;
 				WRAPPER_EXTENSION = appex;
