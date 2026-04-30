@@ -21,12 +21,23 @@ your mouse battery and your keyboard battery. The host app lives in the macOS me
 handles device polling and notifications, and feeds a lightweight WidgetKit extension for
 desktop widgets.
 
+## Project Basis
+
+This project is based on `uffiulf/razer-battery-status-macos` for the original Razer battery
+monitoring direction, then narrowed down into a cleaner menu bar app plus WidgetKit desktop
+widget focused on just a few daily-use peripherals.
+
+The current Razer battery path is reimplemented in native macOS IOKit code and keeps only the
+battery and charging pieces the app needs. The ASUS keyboard path is a separate integration built
+around the ROG Omni Receiver HID report flow used by the Falchion RX Low Profile in 2.4GHz mode.
+
 ## Preview
 
-![Peripheral Battery medium widget preview](assets/widget-medium.png)
+![Peripheral Battery desktop widget preview](assets/readme-component-showcase.png)
 
 The widget is designed to stay minimal on the desktop while still making battery state
-glanceable. The current build supports both `small` and `medium` widget families.
+glanceable in the actual menu bar and desktop setup. The current build supports both
+`small` and `medium` widget families.
 
 ## Highlights
 
@@ -42,8 +53,48 @@ glanceable. The current build supports both `small` and `medium` widget families
 ## Supported Devices
 
 - `Razer DeathAdder V3 Pro`
+  Wireless dongle mode is supported for battery reads, and wired mode is used to detect charging.
 - `ROG Falchion RX Low Profile`
-- `ROG Omni Receiver` for keyboard battery reporting in 2.4GHz mode
+  Battery reporting is supported in 2.4GHz mode through the ROG Omni Receiver path currently
+  implemented in the app.
+- `ROG Omni Receiver` with product ID `0x1ACE`
+  This is the receiver path the keyboard integration is built against.
+
+Not currently implemented:
+
+- Other Razer mice, even if they are close relatives, still need their own verified product IDs
+  and protocol confirmation.
+- Other ASUS or ROG keyboards still need their own captured HID traffic and response parsing.
+- Bluetooth-specific battery paths are not implemented in this repo.
+
+## Adding Another Device
+
+Adding a new device is mostly protocol reverse-engineering work rather than UI work.
+
+1. Identify the transport first.
+   Confirm whether the device reports battery over USB control transfers, HID output/input
+   reports, a receiver dongle, or a wired-only path.
+2. Capture the vendor traffic on Windows.
+   In practice this is often the fastest route because the official vendor software usually
+   exposes the proprietary battery query path there first. A common setup is `Wireshark` with
+   `USBPcap` for USB traffic, then triggering battery refreshes, charge-state changes, or
+   wireless-mode changes while recording.
+3. Extract the protocol constants.
+   You need the vendor and product IDs, interface number, report ID, request bytes, expected
+   response shape, checksum or framing rules, and the exact byte that maps to battery percent.
+4. Reproduce the query on macOS.
+   For Razer-style USB control transfers, extend [`src/RazerDevice.cpp`](/Users/young/Coding/PeripheralBattery/src/RazerDevice.cpp)
+   and [`src/RazerDevice.hpp`](/Users/young/Coding/PeripheralBattery/src/RazerDevice.hpp). For
+   receiver-driven HID devices similar to the Falchion path, start from
+   [`src/main.mm`](/Users/young/Coding/PeripheralBattery/src/main.mm).
+5. Use the local probe tools before wiring it into the app.
+   [`tools/rog_probe.mm`](/Users/young/Coding/PeripheralBattery/tools/rog_probe.mm) and
+   [`tools/rog_usb_probe.mm`](/Users/young/Coding/PeripheralBattery/tools/rog_usb_probe.mm) are
+   useful for checking report sizes, interfaces, and raw replies on macOS before you add app UI
+   logic.
+6. Finish the app-facing integration.
+   After the protocol is stable, add the new device name, widget presentation, and any custom
+   icon or snapshot handling needed by the menu bar app and widget extension.
 
 ## How It Works
 
@@ -135,5 +186,6 @@ Makefile
 
 ## Credits
 
-This repo is a trimmed adaptation of `uffiulf/razer-battery-status-macos`, narrowed down to the
-battery-monitoring path and rebuilt with a cleaner widget-focused desktop presentation.
+- Original Razer battery-monitoring direction from `uffiulf/razer-battery-status-macos`
+- This repo's macOS menu bar app, widget integration, and multi-device adaptation are specific to
+  Peripheral Battery
