@@ -137,6 +137,16 @@ This builds the standalone menu bar binary.
 This is the recommended path when you want the full macOS app bundle with the embedded widget
 extension.
 
+Running the script produces two copies:
+
+- `./PeripheralBattery.app`
+  This is the Xcode-built bundle copied out of DerivedData. Use this copy when installing to
+  `/Applications` and when validating widget behavior.
+- `/tmp/PeripheralBattery.app`
+  This is a convenience copy that gets re-signed ad-hoc by the script. It is useful for quick
+  local launches, but it should not be your default source bundle for `/Applications` when you
+  are debugging WidgetKit refreshes, extension identity, or App Group behavior.
+
 ### Xcode Project
 
 Open `PeripheralBattery.xcodeproj` in Xcode and run the `PeripheralBattery` scheme.
@@ -167,13 +177,74 @@ xcodebuild -project PeripheralBattery.xcodeproj \
 ## Install
 
 1. Build the app bundle with `./build_app.sh` or from Xcode.
-2. Move `PeripheralBattery.app` into `/Applications`.
-3. Open the app once.
-4. Grant `Input Monitoring` if you want keyboard battery reporting.
-5. Add the desktop widget from the widget picker.
+2. Use the freshly built `./PeripheralBattery.app` as the install source.
+3. Quit the running app if it is already open.
+4. Replace `/Applications/PeripheralBattery.app` with the new bundle.
+5. Open the app from `/Applications`.
+6. Grant `Input Monitoring` if you want keyboard battery reporting.
+7. Add the desktop widget from the widget picker.
 
 If you are iterating on the widget design, removing the old widget instance and re-adding it is
 often the fastest way to force macOS to pick up a fresh extension build.
+
+## Update Flow
+
+When the menu bar app and the desktop widget both matter, the safe update chain is:
+
+1. Run `./build_app.sh` or rebuild from Xcode.
+2. Treat the newly built `./PeripheralBattery.app` as the canonical bundle.
+3. Quit the old app if it is running.
+4. Replace `/Applications/PeripheralBattery.app` with the new bundle.
+5. Launch the app from `/Applications`.
+6. If the keyboard path is involved, confirm `Input Monitoring` is still enabled after launch.
+7. If the widget still shows old data or old art, remove the existing desktop widget and add it again.
+
+This matters because the widget is not just reading app files directly. The host app, the embedded
+`PeripheralBatteryWidgetExtension.appex`, WidgetKit's cached extension identity, and the shared
+App Group container all need to stay aligned on the same installed build.
+
+## Troubleshooting
+
+### Keyboard Battery Missing But Menu Bar App Is Running
+
+The Falchion path depends on `Input Monitoring`. If keyboard battery suddenly disappears:
+
+1. Check `System Settings -> Privacy & Security -> Input Monitoring`.
+2. Confirm `PeripheralBattery` is still enabled.
+3. If you changed the toggle, quit and reopen the app once.
+
+If you want to confirm that the low-level ASUS receiver path is still alive, the local probe can
+check the raw HID reply path directly:
+
+```sh
+clang++ -x objective-c++ -std=c++17 -framework IOKit -framework CoreFoundation \
+  tools/rog_probe.mm -o /tmp/rog_probe && /tmp/rog_probe
+```
+
+### Menu Bar Battery Updates But Widget Stays Stale
+
+This usually means the host app is fine, but the widget instance or installed extension is stale.
+
+Quick checks:
+
+1. Verify the host app is still writing fresh shared snapshot data:
+
+```sh
+defaults read group.com.young.peripheralbattery batterySnapshot
+```
+
+2. If the snapshot is current, rebuild and reinstall the app using the `Update Flow` above.
+3. Remove the old desktop widget instance and add it again.
+4. If needed, confirm the installed widget extension still carries the shared App Group entitlement:
+
+```sh
+codesign -d --entitlements :- \
+  /Applications/PeripheralBattery.app/Contents/PlugIns/PeripheralBatteryWidgetExtension.appex
+```
+
+The installed widget extension should expose `group.com.young.peripheralbattery`. If the menu bar
+is correct but the widget is stale, the failure is usually in installation state, extension
+identity, or widget instance caching rather than in the battery polling logic itself.
 
 ## Project Layout
 

@@ -1,12 +1,11 @@
 当前正在做什么
-- 本轮 README 展示图、应用图标、项目说明文档补充和 `/Applications` 安装包同步已完成。
+- 已把这次菜单栏恢复、widget 不更新、重新构建安装链路和最短排障步骤补充进 README，降低下次重复排查成本。
 
 上次停在哪个位置
-- 这次会话开始时仓库没有 `CONTEXT.md`，README 仍使用旧的 widget 预览图，应用仍使用旧图标资源。
+- 菜单栏侧的鼠标和键盘电量读取已恢复，主 app 已确认能把最新快照写入 `group.com.young.peripheralbattery`，并已重新安装带正确 entitlement 的 app 版本到 `/Applications`。
 
 近期的关键决定和原因
-- README 的组件展示改用真实桌面截图，比单独的 widget 渲染图更接近实际观感。
-- 应用图标直接采用用户提供的图二，并重生成整套 `AppIcon.iconset` 和 `AppIcon.icns`，保证 README 顶部图标与应用图标保持一致。
-- 使用 `xcodebuild ... CODE_SIGNING_ALLOWED=NO build` 做编译验证，先确认资源替换没有破坏工程，再决定是否做签名和安装验证。
-- README 已补充项目来源、当前支持设备范围，以及新增设备时需要先做 Windows 抓包和协议复现的原因与步骤，减少下次重复解释成本。
-- 单纯运行 `/tmp/PeripheralBattery.app` 不会更新 `/Applications/PeripheralBattery.app` 的图标资源；如果用户查看“应用程序”目录中的图标，需要把新包显式同步到 `/Applications`。
+- `defaults read group.com.young.peripheralbattery batterySnapshot` 已显示最新鼠标和键盘电量，说明主 app 写共享快照和触发 reload 的链路基本正常。
+- 根目录重新构建出的 `PeripheralBattery.app` 与其中的 `PeripheralBatteryWidgetExtension.appex` 都已确认带有 `group.com.young.peripheralbattery` entitlement 和正式的开发签名。
+- 用这份新产物完整替换 `/Applications/PeripheralBattery.app` 后，再次校验 `/Applications` 中的 widget appex，App Group entitlement 仍然存在，说明这次安装包身份是正确的。
+- 当前经验结论已写入 README：安装到 `/Applications` 时应以根目录新构建出的 `./PeripheralBattery.app` 为准，不要默认拿 `/tmp/PeripheralBattery.app` 作为长期安装源；菜单栏正常但 widget 不更新时，先查共享快照，再重装 app，最后删除并重加 widget。
